@@ -8,6 +8,7 @@ Basic Matlab scripts and a Matlab obj wrapper for the APX555B to handle FFT meas
   - Export settings
   - Scope/FFT/PSD
   - Power Average Amount
+Certain things, like non-power averaging, multichannel support, Output support, Sample methods, sampling rate/bandwidth, and other customizable settings, are left untouched since they are not needed for my case.
 
 - To learn more, use the official APx programming guide + APx has an API documentation which helps!
   
