@@ -82,7 +82,7 @@ sigAn.Start();
 
 
 %% Export data
-%data is exported as .mat to a folder
+
 path = 'C:\Users\Ben\OneDrive\Desktop\work\TUE\matlab codes\BEP\Noise\fftfile.mat'; % path + file name 
 apx.BenchMode.Measurements.Fft.ExportData(path,AudioPrecision.API.NumberOfGraphPoints.GraphPointsAllPoints,false);
 
@@ -90,9 +90,10 @@ apx.BenchMode.Measurements.Fft.ExportData(path,AudioPrecision.API.NumberOfGraphP
 load('fftfile.mat')
 
 %handle 4*2 cell
-fftdata = FFTSpectrum{4,1};
-freq= FFTSpectrum{4,2};
-
+fftdata = FFTSpectrum{4,2};
+freq= FFTSpectrum{4,1};
+scopedata = Scope{4,2};
+time = Scope{4,1};
 % Basic checks
 assert(length(fftdata) == length(freq), 'fftdata and freq must match');
 
@@ -117,4 +118,7 @@ PSDdata_dB = 10*log10(PSDdata);
 freq_dB = log10(freq);
 
 % plot
-plot(PSDdata_dB,freq_dB)
+figure
+plot(freq_dB,PSDdata_dB)
+figure
+plot(time,scopedata)
