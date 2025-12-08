@@ -199,6 +199,7 @@ classdef apxobj < handle
         end
 
         function plotPSD(obj)
+            figure;
             plot(log10(obj.freq), obj.PSDdata_dB,'LineWidth',1.2)
             grid on
             xlabel('log_{10}(Frequency)')
@@ -207,6 +208,7 @@ classdef apxobj < handle
         end
 
         function plotFFT(obj)
+            figure;
             plot(log10(obj.freq),obj.fftdata,'LineWidth',1.2)
             grid on
             xlabel('log_{10}(Frequency)')
