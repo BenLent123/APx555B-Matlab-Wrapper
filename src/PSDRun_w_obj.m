@@ -4,7 +4,7 @@ close all
 clc
 %% Instantiate APX connection
 apx = apxobj();
-apx.visible = false;
+apx.setvisible(false); % by default false
 %% Setup FFT
 apx.inputtermination = '100k'; 
 apx.windowType = 'Equiripple';
@@ -17,5 +17,6 @@ apx.exportDir = 'C:\Users\Ben\OneDrive\Desktop\work\TUE\matlab codes\BEP\Noise';
 apx.runFFT();
 %% return data
 data = apx.returndata(); %returns PSD FFT SCOPE
-%% Plot func (psd vs log(f))
+%% Plot func (psd vs log(f)) (fft vs log(f))
 apx.plotPSD();
+apx.plotFFT();
