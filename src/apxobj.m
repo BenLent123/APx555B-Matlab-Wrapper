@@ -136,8 +136,8 @@ classdef apxobj < handle
     methods (Access = private)
         function p = makeExportPath(obj)
             if isempty(obj.exportFile)
-                ts = datestr(now,'yyyy-mm-dd_HHMMSS');
-                obj.exportFile = ['fft_', ts, '.mat'];
+                ts = datetime('now', 'Format', 'yyyy-MM-dd_HHmmss');
+                obj.exportFile = ['fft_' char(ts) '.mat']; 
             end
 
             p = fullfile(obj.exportDir, obj.exportFile);
@@ -205,8 +205,43 @@ classdef apxobj < handle
             ylabel('PSD (dB(V^2/Hz))')
             title('Power Spectral Density')
         end
+
+        function plotFFT(obj)
+            plot(log10(obj.freq),obj.fftdata,'LineWidth',1.2)
+            grid on
+            xlabel('log_{10}(Frequency)')
+            ylabel('FFT (V_{rms})')
+            title('FFT')
+        end
     end
 
+    methods
+    function setvisible(obj, flag)
+        % setVisible(true/false)
+        % Simple handler to turn APx GUI visibility ON or OFF.
+
+        % Convert input to logical
+        obj.visible = logical(flag);
+
+        % If APx application isn't created yet, just warn and return
+        if isempty(obj.app)
+            warning('APx application handle not initialized yet.');
+            return;
+        end
+
+        % Apply visibility to APx application
+        obj.app.Visible = obj.visible;
+
+        % If turning ON, try to force the GUI to appear
+        if obj.visible
+            try
+                obj.app.ShowWindow();   % Not all APx versions have this
+            catch
+                % Quiet: not an error, just means API version lacks ShowWindow
+            end
+        end
+    end
+end
     %% ================= VALIDATION =================
     methods (Static, Access = private)
         function validateFFTLength(N)
